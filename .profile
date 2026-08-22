@@ -1,7 +1,7 @@
 clear && ls
 
 echo "first load, remove before"
-apk add coreutils tree ncurses
+apk add coreutils tree ncurses go git
 
 # bash
 #alias tls="clear && tree -a -C -I \".venv|.git|node_modules|target\" -L 3"
