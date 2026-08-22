@@ -1,5 +1,8 @@
 clear && ls
 
+echo "first load, remove before"
+apk add coreutils tree ncurses
+
 # bash
 #alias tls="clear && tree -a -C -I \".venv|.git|node_modules|target\" -L 3"
 #alias tlss="clear && tree -a -C -I \".venv|.git|node_modules!target\""
@@ -93,5 +96,11 @@ alias rsbld="cargo build"
 alias rschk="cargo check"
 alias rsrun="cargo run"
 alias rsnew="cargo new"
+
+# turso
+alias "turso-login"="turso auth login"
+alias "turso-new"="turso db create"
+alias "turso-ls"="turso db list"
+alias "turso-db-url"="turso db show"
 
 
