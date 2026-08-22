@@ -12,7 +12,6 @@ alias cls="clear && ls --ignore='__init__.py'"
 
 alias update="pkg update && pkg upgrade"
 
-alias alpine="proot-distro login alpine"
 alias kill_proc="kill -9 PID"
 
 alias tool="vim ~/.bashrc"
@@ -36,6 +35,12 @@ alias "....."="cd ../../../.."
 alias "...."="cd ../../.."
 alias "..."="cd ../.."
 alias ".."="cd .."
+
+
+# alpine
+alias alpine="proot-distro login alpine"
+alias alpine_reset="proot-distro remove alpine"
+alias alpine_init="proot-distro install alpine"
 
 
 # golang
