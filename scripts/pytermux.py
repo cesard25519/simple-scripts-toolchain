@@ -11,7 +11,6 @@ while True:
         .replace('/data/data/com.termux/files', '')
         .replace('Android', 'BSD')
         .replace('android', 'bsd')
-        .strip()
     )
 
     if '.?' in ctt:

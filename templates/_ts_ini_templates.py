@@ -27,9 +27,9 @@ export class XCounter extends Counter {
     protected render(): HTMLTemplateResult {
         return html`
             <h1>${ this.value }</h1>
-            <button @click=${ this.__increment }> + </button>
-            <button @click=${ this.__reset }> RESET </button>
             <button @click=${ this.__decrement }> - </button>
+            <button @click=${ this.__reset }> RESET </button>
+            <button @click=${ this.__increment }> + </button>
         `;
     }
 }

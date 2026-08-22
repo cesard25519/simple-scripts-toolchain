@@ -40,6 +40,7 @@ def _create_fold_structure() -> None:
 
 def _create_main_ts() -> None:
     template: list[str] = [
+        "import './src/components/xCounter';",
         "import { XCounter } from './src/components/xCounter';",
         '',
         '',
@@ -87,6 +88,14 @@ def _fmt_index_html() -> None:
 
 def _alloc_index_in_root() -> None:
     __exec('mv src/index.css .')
+
+    lines: list[str] = []
+    with open('index.css', 'r') as css:
+        for line in css:
+            lines.append(line.replace('  ', '    '))
+
+    with open('index.css', 'w') as css:
+        css.writelines(lines)
 
 
 def _clean_src() -> None:

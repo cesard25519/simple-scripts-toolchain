@@ -48,29 +48,30 @@ class Regex:
         return f'Regex(value={str(self)})'
 
 
-    def at_least_one_upper(self) -> Self:
-        self.__regex.add( r'(?=.*[A-Z])' )
+    def __add(self, reg: str) -> Self:
+        self.__regex.add(reg)
         return self
+
+
+    def at_least_one_upper(self) -> Self:
+        return self.__add( r'(?=.*[A-Z])' )
 
 
     def at_least_one_lower(self) -> Self:
-        self.__regex.add( r'(?=.*[a-z])' )
-        return self
+        return self.__add( r'(?=.*[a-z])' )
 
 
     def at_least_one_digit(self) -> Self:
-        self.__regex.add( r'(?=.*\\d)' )
-        return self
+        return self.__add( r'(?=.*\\d)' )
 
 
     def at_least_one_symbol(self) -> Self:
-        self.__regex.add( r'(?=.*[@$!%?&])' )
-        return self
+        return self.__add( r'(?=.*[@$!%?&])' )
 
 
     def at_least_one_alpha(self) -> Self:
-        self.__regex.add( r'(?=.*[A-Za-z])' )
-        return self
+        return self.__add( r'(?=.*[A-Za-z])' )
+
 
     def matches(self, val: str) -> bool:
         import re

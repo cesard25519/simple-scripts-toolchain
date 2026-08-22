@@ -7,24 +7,24 @@ alias tlsss="clear && tree -a -C -I \".venv|.git|node_modules|target|.env|.gitig
 alias tlss="clear && tree -a -C -I \".venv|.git|node_modules|target\""
 alias tls="tlss -L 3"
 
-alias clss="clear && ls -a --ignore='__init__.py'"
-alias cls="clear && ls --ignore='__init__.py'"
+alias clss="clear && ls -a -I '__init__.py'"
+alias cls="clear && ls -I '__init__.py'"
 
-alias update="pkg update && pkg upgrade"
+alias update="apk update && apk upgrade"
 
-alias alpine="proot-distro login alpine"
+alias vi="vim"
 alias kill_proc="kill -9 PID"
 
-alias tool="vim ~/.bashrc"
+alias tool="vim ~/.profile"
 alias viconf="vim ~/.vim/"
 alias vicoc="vim ~/.vim/coc-settings.json"
 
-alias pkgls="pkg list-installed"
-alias pkgu="pkg uninstall"
-alias search="pkg search"
-alias ins="pkg install"
+alias apkls="apk list"
+alias apku="apk del"
+alias search="apk search"
+alias ins="apk add"
 
-alias re="exec bash"
+alias re=". ~/.profile"
 alias del="rm -rf"
 
 alias xx="exit"
@@ -48,24 +48,6 @@ alias mkjavmod="python ~/.toolchain/py_java.py"
 alias javrun="./mvnw spring-boot:run"
 
 
-# toolchain
-# alias ="python ~/.toolchain/"
-alias tc="cd ~/.toolchain"
-
-alias pyinibackend="python ~/.toolchain/py_backend.py"
-alias tslitcomp="python ~/.toolchain/ts_pkg_lit_component.py"
-alias littsini="python ~/.toolchain/lit_ts_init.py"
-
-alias mkpyrouter="python ~/.toolchain/py_pkg_router.py"
-alias mkpymod="python ~/.toolchain/py_module_init.py"
-
-# toolchain.scripts
-# alias ="python ~/.toolchain/scripts/"
-alias countlines="python ~/.toolchain/scripts/countlines.py"
-alias pytermux="python ~/.toolchain/scripts/pytermux.py"
-alias delpy="python ~/.toolchain/scripts/delpy.py"
-
-
 # git
 alias pregh="git init && git remote add origin"
 alias ingh="git add . && git commit -m"
@@ -85,7 +67,7 @@ alias _pyapi="python3 -m http.server"
 alias pinr="pip install -r req.txt"
 alias pyls="cls && python main.py"
 alias pycheck="pyrefly check"
-alias nenv="python3.13 -m venv .venv"
+alias nenv="python3.11 -m venv .venv"
 alias pyrun="python main.py"
 alias pyapp="python app.py"
 alias pun="pip uninstall"
@@ -112,20 +94,4 @@ alias rschk="cargo check"
 alias rsrun="cargo run"
 alias rsnew="cargo new"
 
-# postgresql
-alias pg__ini="python ~/.toolchain/scripts/pg_init.py"
-alias pg__job="pg_ctl status -D ~/._labs"
-alias pg__stop="pg_ctl stop -D ~/._labs"
-alias pg__clean="delpy ~/._labs"
-
-
-export ANDROID_API_LEVEL=$(getprop ro.build.version.sdk)
-export PATH=$HOME/.cargo/bin:$PATH
-
-# mb
-export RUST_ANALYZER_MEMORY_USAGE=4096
-export RUST_ANALYZER_WORKER_COUNT=8
-export CARGO_BUILD_JOBS=8
-export RUST_ANALYZER_CHECK_WORKSPACE="false"
-export RUSTC_WRAPPER=sccache
 
