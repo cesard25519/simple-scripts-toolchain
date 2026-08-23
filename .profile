@@ -99,8 +99,10 @@ alias rsnew="cargo new"
 
 # turso
 alias "turso-login"="turso auth login"
-alias "turso-new"="turso db create"
+alias "turso-new-db"="turso db create"
+alias "turso-remove-db"="turso db destroy"
 alias "turso-ls"="turso db list"
 alias "turso-db-url"="turso db show"
-
+alias "turso-db-auth-token"="turso db tokens create"
+alias "turso-shell"="turso db shell"
 
