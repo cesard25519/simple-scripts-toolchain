@@ -5,6 +5,8 @@ import os
 class WordFinder:
     def __init__(self) -> None:
         self._words: list[str] = words[1:]
+        self._divider: str = 'home'
+        self._trace_dir: str = '/'
 
 
     def __call__(self) -> None:
@@ -29,27 +31,30 @@ class WordFinder:
                 if len(fmtd_word) == len(line): continue
 
                 print(
-                    # '{ filename } | { line_number } : { line.strip() }',
-                    f'\033[1;36m{ self.__fmt_filename(s=filename)}\033[0m'
-                    f': \033[33m{ self.__fmt_line_number(i=line_number) }\033[0m'
+                    f'\033[1;36m{ self.__fmt_filename(s=self._trace_dir +  filename)}\033[0m'
+                    f'\n{ " " * 6 }|\n'
+                    f'\033[33m{ self.__fmt_line_number(i=line_number) }\033[0m'
                     f'| \033[31m{ fmtd_word.strip() }\033[0m'
+                    f'{ " " * 6 }|\n'
                 )
 
 
     def __fmt_filename(self, s: str) -> str:
         large: int = len(s)
+        constant: int = 40
+        return s[:constant - 3] + '...' if large >= constant else s + ' ' * (constant - large)
 
-        return s[:17] + '...' if large >= 20 else s + ' ' * (20 - large)
 
     def __fmt_line_number(self, i: int) -> str:
         large: int = len(str(i))
-
         return str(i)[:3] + '...' if large >= 5 else str(i) + ' ' * (6 - large)
-
 
 
     def __rcv_finder(self) -> None:
         directories: list[str] = os.listdir()
+
+        home: str = os.getcwd().split('home')[1]
+        self._trace_dir = home.removeprefix(self._trace_dir) + '/'
 
         for directory in directories:
             if not os.path.isdir(directory) and os.path.isfile(directory):
