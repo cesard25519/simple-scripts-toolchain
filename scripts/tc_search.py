@@ -1,0 +1,77 @@
+from sys import argv as words
+import os
+
+
+class WordFinder:
+    def __init__(self) -> None:
+        self._words: list[str] = words[1:]
+
+
+    def __call__(self) -> None:
+        self.__rcv_finder()
+
+
+    def __exists_word(self, line: str) -> str:
+        for word in self._words:
+            if word in line:
+                return line.replace(word, f'\033[34m{ word }\033[0m')
+
+        return line
+
+
+    def __find_word(self, filename: str) -> None:
+        with open(filename, 'r', errors='ignore', encoding='utf-8') as file:
+            for line_number, line in enumerate(file, start=1):
+                line: str = f'\n\033[31m{ line }\033[0m'
+
+                fmtd_word: str = self.__exists_word(line=line)
+
+                if len(fmtd_word) == len(line): continue
+
+                print(
+                    # '{ filename } | { line_number } : { line.strip() }',
+                    f'\033[1;36m{ self.__fmt_filename(s=filename)}\033[0m'
+                    f': \033[33m{ self.__fmt_line_number(i=line_number) }\033[0m'
+                    f'| \033[31m{ fmtd_word.strip() }\033[0m'
+                )
+
+
+    def __fmt_filename(self, s: str) -> str:
+        large: int = len(s)
+
+        return s[:17] + '...' if large >= 20 else s + ' ' * (20 - large)
+
+    def __fmt_line_number(self, i: int) -> str:
+        large: int = len(str(i))
+
+        return str(i)[:3] + '...' if large >= 5 else str(i) + ' ' * (6 - large)
+
+
+
+    def __rcv_finder(self) -> None:
+        directories: list[str] = os.listdir()
+
+        for directory in directories:
+            if not os.path.isdir(directory) and os.path.isfile(directory):
+                try:
+                    self.__find_word(filename=directory)
+
+                except Exception as e: print(f'conflict in : { directory }: { e }')
+                continue
+
+            try:
+                os.chdir(directory)
+                self.__rcv_finder()
+
+            except Exception as e: print(e)
+
+            finally: os.chdir('..')
+
+
+
+
+
+if __name__ == '__main__':
+    finder: WordFinder = WordFinder()
+
+    finder()
