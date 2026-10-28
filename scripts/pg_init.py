@@ -1,8 +1,4 @@
 from os import system as __exec
-from typing import Callable
-
-
-__main__: Callable = lambda _: print(_())
 
 
 ___PGSQL_DATABASE_FOLD_INIT: str = '~/._labs'
@@ -40,7 +36,6 @@ def __create_on_pg_sample_db() -> None:
     __exec('createdb ' + db_name)
 
 
-@__main__
 def main() -> None:
     try:
         __init_pgsql_instance()
@@ -50,3 +45,8 @@ def main() -> None:
 
     except Exception as e:
         print('error creating instance pgsql: ', str(e))
+
+
+if __name__ == '__main__':
+    main()
+

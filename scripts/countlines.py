@@ -1,14 +1,14 @@
 from sys import argv
-import os
+from os import scandir
 
 
 argv.pop(0)
 
 
-def countlines(ruta) -> int:
+def countlines(route: str) -> int:
     total = 0
 
-    for entry in os.scandir(ruta):
+    for entry in scandir(route):
         if entry.name in argv:
             continue
 

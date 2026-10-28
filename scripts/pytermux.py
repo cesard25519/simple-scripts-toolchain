@@ -1,4 +1,4 @@
-from os import system
+from os import system as __exec
 
 
 class PyTermux:
@@ -49,7 +49,7 @@ class PyTermux:
         is_mark: bool = '?' in self._ctt
 
         if is_mark:
-            system('clear')
+            __exec('clear')
             for line in self._data:
                 print(line)
 

@@ -1,11 +1,6 @@
 template_dot_gitignore: str = """.env
 """
 
-template_dot_env: str = """
-HOST="0.0.0.0"
-PORT=4000
-"""
-
 template_main: str = """from dotenv import load_dotenv
 
 

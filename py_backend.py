@@ -1,6 +1,7 @@
 from utils import (
     __create_dir_and_enter,
     __create_py_file,
+    __create_dotenv,
     __create_file,
     __create_dir,
     __move_back,
@@ -16,7 +17,6 @@ from templates._py_tools import (
 
 from templates._py_backend import (
     template_dot_gitignore,
-    template_dot_env,
     template_config,
     template_main,
     template_app,
@@ -26,7 +26,7 @@ from templates._py_backend import (
 def __create_root() -> None:
     # varenv and gitignore
     __create_file(name='.gitignore', content=template_dot_gitignore)
-    __create_file(name='.env', content=template_dot_env)
+    __create_dotenv()
 
     # base code
     __create_py_file(name='config', content=template_config)
