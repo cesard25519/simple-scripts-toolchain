@@ -13,6 +13,9 @@ app: FastAPI = FastAPI()
 
 
 def main() -> None:
+    # from api import ...
+
+
     # app.include_router(router=_.router)
     ...
 
@@ -75,5 +78,15 @@ class Settings(BaseSettings):
 
         finally:
             conn.close()
+
+"""
+template_create_tables: str = """from config import SETTINGS
+
+
+def create_tables() -> None:
+    with SETTINGS.Conn as conn:
+        with open(file='tables.sql', mode='r') as tables:
+
+            conn.executescript(tables.read())
 
 """

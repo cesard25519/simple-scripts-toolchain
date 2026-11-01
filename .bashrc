@@ -25,8 +25,11 @@ alias ins="pkg install"
 
 alias re="exec bash"
 alias del="rm -rf"
+alias del_chmod_w="chmod -R +w"
 
 alias xx="exit"
+
+alias psall='ps -s; echo; ps -l; echo; ps -t; echo; ps -m; echo; ps -a; echo'
 
 alias "........"="cd ../../../../../../.."
 alias "......."="cd ../../../../../.."
@@ -36,6 +39,8 @@ alias "...."="cd ../../.."
 alias "..."="cd ../.."
 alias ".."="cd .."
 
+# utils
+alias top10="dpkg-query -W -f='\${Installed-Size}\t\${Package}\n' | sort -rn | head -30"
 
 # alpine
 alias alpine="proot-distro login alpine"
@@ -43,9 +48,11 @@ alias alpine_reset="proot-distro remove alpine"
 alias alpine_init="proot-distro install alpine"
 
 
+
 # golang
 alias gols="clear && go run ."
 alias gobld="go build main.go"
+alias go_fmt="gofmt -w "
 
 
 # java
@@ -57,12 +64,15 @@ alias javrun="./mvnw spring-boot:run"
 # alias ="python ~/.toolchain/"
 alias tc="cd ~/.toolchain"
 
+alias tc_search="python ~/.toolchain/scripts/tc_search.py"
 alias pyinibackend="python ~/.toolchain/py_backend.py"
 alias tslitcomp="python ~/.toolchain/ts_pkg_lit_component.py"
 alias littsini="python ~/.toolchain/lit_ts_init.py"
 
 alias mkpyrouter="python ~/.toolchain/py_pkg_router.py"
 alias mkpymod="python ~/.toolchain/py_module_init.py"
+alias mkpyflask="python ~/.toolchain/py_flask_ini.py"
+alias mkpyfastapi="python ~/.toolchain/py_fastapi_ini.py"
 
 # toolchain.scripts
 # alias ="python ~/.toolchain/scripts/"
@@ -72,6 +82,7 @@ alias delpy="python ~/.toolchain/scripts/delpy.py"
 
 
 # git
+alias gh_local_to_remote="git remote add origin"
 alias pregh="git init && git remote add origin"
 alias ingh="git add . && git commit -m"
 alias togh="git push -u origin"
@@ -90,12 +101,20 @@ alias _pyapi="python3 -m http.server"
 alias pinr="pip install -r req.txt"
 alias pyls="cls && python main.py"
 alias pycheck="pyrefly check"
-alias nenv="python3.13 -m venv .venv"
+alias nenv="python -m venv .venv"
 alias pyrun="python main.py"
 alias pyapp="python app.py"
 alias pun="pip uninstall"
 alias pin="pip install"
 alias pls="pip list"
+
+# flet
+alias pyft="python src/main.py"
+alias ftls="clear && flet run --web --port=3000"
+alias ftlsa="clear && flet run --android"
+
+# flask
+alias fkls="flask run --debug"
 
 # django
 alias dj_new="django-admin startproject"
@@ -104,8 +123,10 @@ alias dj_new="django-admin startproject"
 # javascript
 #alias astro="npm create astro@latest"
 alias jsrun="npm run dev -- --host 0.0.0.0"
+alias noderun="node --env-file=.env main.js"
 alias jsnew="npm create vite@latest"
 alias npi="npm install"
+alias npc="npm create"
 
 # rust
 alias cpatchelf="patchelf --set-rpath ./"
