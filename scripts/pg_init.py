@@ -1,17 +1,17 @@
-from os import system as __exec
+from os import system as _exec
 
 
-___PGSQL_DATABASE_FOLD_INIT: str = '~/._labs'
+___PGSQL_DATABASE_FOLD_INIT: str = '~/._pg_lab'
 
 
 def __init_pgsql_instance() -> None:
     print('creando instancia pgsql')
-    __exec('initdb ' + ___PGSQL_DATABASE_FOLD_INIT)
+    _exec('initdb ' + ___PGSQL_DATABASE_FOLD_INIT)
 
 
 def __init_pg_serve() -> None:
     print('iniciando server pgsql')
-    __exec(
+    _exec(
         'pg_ctl '
         + '-D {} '.format(___PGSQL_DATABASE_FOLD_INIT)
         + '-l {} '.format(___PGSQL_DATABASE_FOLD_INIT + '/logfile')
@@ -22,7 +22,7 @@ def __init_pg_serve() -> None:
 def __create_pg_usr() -> None:
     print('creando user')
     usr: str = input('User<admin>: ') or 'admin'
-    __exec(
+    _exec(
         'createuser '
             '--superuser '
             '--pwprompt '
@@ -33,7 +33,7 @@ def __create_pg_usr() -> None:
 def __create_on_pg_sample_db() -> None:
     print('creando db')
     db_name: str = input('Database Name<sample>: ') or 'sample'
-    __exec('createdb ' + db_name)
+    _exec('createdb ' + db_name)
 
 
 def main() -> None:
