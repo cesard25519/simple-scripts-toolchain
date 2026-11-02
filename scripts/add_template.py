@@ -4,7 +4,8 @@ from sys import argv
 
 from utils import __main__
 from _templates import (
-    dot_env_pg,
+    dotenv_pg,
+    dotenv,
 )
 
 temp_names: list[str] = argv[1:]
@@ -21,16 +22,8 @@ class Code(NamedTuple):
 
 langs: dict[str, dict[str, Code]] = {
     '_': {
-        'dotenv-pg': Code(
-            content=dot_env_pg,
-            name='.env',
-        )
-    },
-    'py': {
-        'sample': Code(
-            content='',
-            name=''
-        ),
+        'dotenv-pg': Code( content=dotenv_pg, name='.env' ),
+        'dotenv': Code( content=dotenv, name='.env' ),
     },
 }
 

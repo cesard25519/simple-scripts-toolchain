@@ -1,7 +1,7 @@
 from secrets import token_hex
 
 
-dot_env_pg: str = f'''
+dotenv_pg: str = f'''
 DATABASE_DATABASE=sample
 DATABASE_PASSWORD=admin
 DATABASE_HOST=localhost
@@ -16,4 +16,17 @@ DEBUG=1
 TOKEN_KEY_EXPIRE_TIME=600
 TOKEN_KEY="{ token_hex(32) }"
 '''
+
+dotenv: str = f'''
+HOST="0.0.0.0"
+PORT=1000
+DEBUG=1
+
+DATABASE_URL="zample.db"
+DATABASE_AUTH_TOKEN="...?"
+
+TOKEN_KEY_EXPIRE_TIME=600
+TOKEN_KEY="{ token_hex(32) }"
+'''
+
 
