@@ -80,13 +80,3 @@ class Settings(BaseSettings):
             conn.close()
 
 """
-template_create_tables: str = """from config import SETTINGS
-
-
-def create_tables() -> None:
-    with SETTINGS.Conn as conn:
-        with open(file='tables.sql', mode='r') as tables:
-
-            conn.executescript(tables.read())
-
-"""

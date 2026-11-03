@@ -10,11 +10,11 @@ from utils import (
 )
 
 from templates._py_fastapi_ini import (
-    template_create_tables,
     template_config_core,
     template_settings,
     template_main,
 )
+from templates._py_repository import template_prepared_query
 
 
 def __create_root() -> None:
@@ -36,7 +36,10 @@ def __create_config_pkg() -> None:
     __create_dir_and_enter(name='config')
     __create_py_file(name='__init__', content=template_config_core)
     __create_py_file(name='settings', content=template_settings)
-    __create_py_file(name='database', content=template_create_tables)
+
+    __create_dir_and_enter(name='database')
+    __create_py_file(name='mod', content=template_prepared_query)
+    __move_back()
 
     __create_dir_and_enter(name='security')
     __create_py_file(name='__init__', content='')

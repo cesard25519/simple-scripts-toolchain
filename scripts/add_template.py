@@ -4,8 +4,8 @@ from sys import argv
 
 from utils import __main__
 from _templates import (
-    dotenv_pg,
-    dotenv,
+    dotenv_pg, dotenv,
+    blank_py,
 )
 
 temp_names: list[str] = argv[1:]
@@ -25,6 +25,9 @@ langs: dict[str, dict[str, Code]] = {
         'dotenv-pg': Code( content=dotenv_pg, name='.env' ),
         'dotenv': Code( content=dotenv, name='.env' ),
     },
+    'py': {
+        '_': Code( content=blank_py, name='main.py' ),
+    }
 }
 
 @__main__
@@ -43,4 +46,4 @@ def main() -> None:
     with open(code.name, 'w', encoding='utf-8') as writer:
         writer.write(code.content)
 
-    print(f'created successfully at `./` with name {code.name}')
+    print(f'created successfully with name {code.name} in this directory')

@@ -29,4 +29,11 @@ TOKEN_KEY_EXPIRE_TIME=600
 TOKEN_KEY="{ token_hex(32) }"
 '''
 
+blank_py: str = """
+def main() -> None:
+    ...
 
+
+if __name__ == '__main__':
+    main()
+"""
