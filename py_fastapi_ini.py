@@ -15,6 +15,7 @@ from templates._py_fastapi_ini import (
     template_main,
 )
 from templates._py_repository import template_prepared_query
+from templates._py_pkg_router import errors
 
 
 def __create_root() -> None:
@@ -47,10 +48,15 @@ def __create_config_pkg() -> None:
     __move_back(); __move_back()
 
 
+def __create_api_pkg() -> None:
+    __create_dir_and_enter(name='api')
+    __create_py_file(name='err', content=errors)
+    __move_back()
+
+
 def __create_fold_struct() -> None:
     __create_config_pkg()
     __create_dir(path='core')
-    __create_dir(path='api')
     __create_dir(path='model')
 
 
