@@ -67,6 +67,8 @@ def main() -> None:
 
         __create_root()
 
+        __create_api_pkg()
+
         __create_fold_struct()
 
     except Exception as e: print(e)
