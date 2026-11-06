@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 
 Pool = Any
-Row = tuple
 
 
 @dataclass
@@ -14,7 +13,7 @@ class Result:
     last_row_inserted_id: int | None = None
 
 
-Get = Callable[..., Row | None]
+Get = Callable[..., tuple[Any] | None]
 Run = Callable[..., Result]
 Exec = Callable[..., None]
 All = Callable[..., list]
@@ -24,14 +23,15 @@ POOL: Pool = Pool
 
 
 class Prepare(Protocol):
-    cur: Callable[..., Pool]
+    def _connect(self) -> Pool: ...
 
-    def get(self, *p: Any) -> Row | None: ...
+    def get(self, *p: Any) -> tuple[Any]| None: ...
 
     def run(self, *p: Any) -> Result: ...
 
-    def all(self, *p: Any) -> list: ...
+    def all(self, *p: Any) -> list[Any]: ...
 
     def exec(self) -> None: ...
 
 """
+

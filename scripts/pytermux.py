@@ -1,10 +1,11 @@
+from dataclasses import dataclass
 from os import system as _exec
 
 
+@dataclass
 class PyTermux:
-    def __init__(self) -> None:
-        self._data: list[str] = []
-        self._ctt: str = ''
+    _data: list[str] = []
+    _ctt: str = ''
 
 
     def __call__(self) -> None:

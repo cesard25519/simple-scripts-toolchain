@@ -33,9 +33,6 @@ if __name__ == '__main__':
 """
 
 template_settings: str = """
-from sqlite3 import Connection, connect
-from collections.abc import Generator
-from contextlib import contextmanager
 from functools import cached_property
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -67,16 +64,4 @@ class Settings(BaseSettings):
             purpose="local",
             version=4,
         )
-
-
-    @property
-    @contextmanager
-    def Conn(self) -> Generator[Connection, None, None]:
-        try:
-            with connect(self.DATABASE_URL) as conn:
-                yield conn
-
-        finally:
-            conn.close()
-
 """

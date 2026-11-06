@@ -10,10 +10,6 @@ class WordFinder:
     trace_dir: str = '/'
 
 
-    def __call__(self) -> None:
-        self.__rcv_finder()
-
-
     def __exists_word(self, line: str) -> str:
         for word in self.words:
             if word in line:
@@ -64,6 +60,8 @@ class WordFinder:
 
             finally: os.chdir('..')
 
+
+    __call__ = __rcv_finder
 
 if __name__ == '__main__':
     WordFinder()()

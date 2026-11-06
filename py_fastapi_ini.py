@@ -27,7 +27,7 @@ def __create_pkg() -> None:
         app_name: str = term_args[1:].pop()
 
     except Exception as e:
-        raise ValueError('application name is required', e)
+        raise ValueError('application name is required ' +  str(e))
 
     __create_dir_and_enter(name=app_name)
 
@@ -56,10 +56,13 @@ def __create_fold_struct() -> None:
 
 @__main__
 def main() -> None:
-    __create_pkg()
+    try:
+        __create_pkg()
 
-    __create_root()
+        __create_root()
 
-    __create_fold_struct()
+        __create_fold_struct()
+
+    except Exception as e: print(e)
 
 

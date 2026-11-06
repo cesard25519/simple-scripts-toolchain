@@ -74,6 +74,8 @@ alias mkpymod="python ~/.toolchain/py_module_init.py"
 alias mkpyflask="python ~/.toolchain/py_flask_ini.py"
 alias mkpyfastapi="python ~/.toolchain/py_fastapi_ini.py"
 
+alias tcadd="python ~/.toolchain/scripts/add_template.py"
+
 # toolchain.scripts
 # alias ="python ~/.toolchain/scripts/"
 alias countlines="python ~/.toolchain/scripts/countlines.py"
@@ -121,12 +123,13 @@ alias dj_new="django-admin startproject"
 
 
 # javascript
-#alias astro="npm create astro@latest"
-alias jsrun="npm run dev -- --host 0.0.0.0"
-alias noderun="node --env-file=.env main.js"
-alias jsnew="npm create vite@latest"
-alias npi="npm install"
-alias npc="npm create"
+#alias astro="pnpm create astro@latest"
+alias jsrun="pnpm run dev -- --host 0.0.0.0"
+alias noderun="node --env-file=.env src/index.ts"
+alias jsnew="pnpm create vite@latest"
+alias honew="pnpm create hono@latest"
+alias npi="pnpm install"
+alias npc="pnpm create"
 
 # rust
 alias cpatchelf="patchelf --set-rpath ./"
@@ -140,9 +143,9 @@ alias rsnew="cargo new"
 
 # postgresql
 alias pg__ini="python ~/.toolchain/scripts/pg_init.py"
-alias pg__job="pg_ctl status -D ~/._labs"
-alias pg__stop="pg_ctl stop -D ~/._labs"
-alias pg__clean="delpy ~/._labs"
+alias pg__job="pg_ctl status -D ~/._pg_lab"
+alias pg__stop="pg_ctl stop -D ~/._pg_lab"
+alias pg__clean="del ~/._pg_lab"
 
 
 export ANDROID_API_LEVEL=$(getprop ro.build.version.sdk)

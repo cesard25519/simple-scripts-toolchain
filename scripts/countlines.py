@@ -5,9 +5,7 @@ from os import scandir
 argv.pop(0)
 
 
-def countlines(route: str) -> int:
-    total = 0
-
+def countlines(route: str, total: int = 0) -> int:
     for entry in scandir(route):
         if entry.name in argv:
             continue
