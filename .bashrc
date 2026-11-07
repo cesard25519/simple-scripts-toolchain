@@ -64,7 +64,7 @@ alias javrun="./mvnw spring-boot:run"
 # alias ="python ~/.toolchain/"
 alias tc="cd ~/.toolchain"
 
-alias tc_search="python ~/.toolchain/scripts/tc_search.py"
+alias tcsearch="python ~/.toolchain/scripts/tc_search.py"
 alias tslitcomp="python ~/.toolchain/ts_pkg_lit_component.py"
 alias littsini="python ~/.toolchain/lit_ts_init.py"
 

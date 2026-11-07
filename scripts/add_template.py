@@ -29,6 +29,8 @@ langs: dict[str, dict[str, Code]] = {
         '_': Code( content=blank_py, name='main.py' ),
     }
 }
+langs['py']['-'] = langs['py']['_']
+langs['-'] = langs['_']
 
 @__main__
 def main() -> None:
