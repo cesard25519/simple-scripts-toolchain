@@ -1,39 +1,26 @@
-template_config_core: str = """from .settings import Settings
+from typing import NamedTuple, Self
+
+
+class Namespace(NamedTuple):
+    settings: str
+    mod: str
+
+
+    @classmethod
+    def as_fold(cls) -> Self:
+        return cls(
+            settings=settings,
+            mod=mod,
+        )
+
+
+mod: str = """from .settings import Settings
 
 
 SETTINGS: Settings = Settings()
 """
 
-template_main: str = """from fastapi import FastAPI
-
-
-from config import SETTINGS
-
-app: FastAPI = FastAPI()
-
-
-def main() -> None:
-    # from api import ...
-
-
-    # app.include_router(router=_.router)
-    ...
-
-
-if __name__ == '__main__':
-    from uvicorn import run
-
-    main()
-
-    run(
-        port=SETTINGS.PORT,
-        host=SETTINGS.HOST,
-        app=app,
-    )
-"""
-
-template_settings: str = """
-from functools import cached_property
+settings: str = """from functools import cached_property
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -65,3 +52,4 @@ class Settings(BaseSettings):
             version=4,
         )
 """
+
