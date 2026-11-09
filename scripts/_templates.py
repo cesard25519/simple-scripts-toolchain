@@ -1,7 +1,7 @@
 from secrets import token_hex
 
 
-dotenv_pg: str = f'''
+dotenv_pg: str = f'''# dotenv_pg::tcadd::poi
 DATABASE_DATABASE=sample
 DATABASE_PASSWORD=admin
 DATABASE_HOST=localhost
@@ -17,7 +17,7 @@ TOKEN_KEY_EXPIRE_TIME=600
 TOKEN_KEY="{ token_hex(32) }"
 '''
 
-dotenv: str = f'''
+dotenv: str = f'''# dotenv::tcadd::poi
 HOST="0.0.0.0"
 PORT=1000
 DEBUG=1

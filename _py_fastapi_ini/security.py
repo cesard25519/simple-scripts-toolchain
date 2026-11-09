@@ -152,21 +152,22 @@ class Capability(NamedTuple):
 
     def can_create_or_raise(self) -> None:
         """ C """
-        if not int(self.permision[1]):
+        if not self.permision or not int(self.permision[0]):
             raise UnAuthorizated()
 
     def can_read_or_raise(self) -> None:
         """ R """
-        if not int(self.permision[0]):
+        if not self.permision or not int(self.permision[1]):
             raise UnAuthorizated()
 
     def can_modify_or_raise(self) -> None:
         """ U """
-        if not int(self.permision[0]):
+        if not self.permision or not int(self.permision[2]):
             raise UnAuthorizated()
 
     def can_delete_or_raise(self) -> None:
         """ D """
-        if not int(self.permision[0]):
+        if not self.permision or not int(self.permision[3]):
             raise UnAuthorizated()
+
 '''

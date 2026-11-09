@@ -27,8 +27,7 @@ model: str = """from pydantic import BaseModel
 class S(BaseModel): ...
 """
 
-repository: str = '''
-from config.database.sqlite import PreparedQuery as Prepare, Void
+repository: str = '''from config.database.sqlite import PreparedQuery as Prepare, Void
 
 
 class Repository:
