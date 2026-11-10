@@ -2,8 +2,8 @@ from typing import NamedTuple, Self
 
 
 class Namespace(NamedTuple):
+    oauth_response: str
     access_token: str
-    rbac_model: str
     err: str
     mod: str
 
@@ -11,8 +11,8 @@ class Namespace(NamedTuple):
     @classmethod
     def as_fold(cls) -> Self:
         return cls(
+            oauth_response=oauth_response,
             access_token=access_token,
-            rbac_model=rbac_model,
             err=err,
             mod=mod,
         )
@@ -37,7 +37,23 @@ ACCESS_TOKEN_DEPENDENCY = Depends(dependency=AT.extractor)
 ACCESS_TOKEN_EXTRACTOR = Annotated[AT, ACCESS_TOKEN_DEPENDENCY]
 """
 
-access_token: str = """from typing import NamedTuple, Self
+oauth_response: str = '''
+from pydantic import BaseModel
+
+
+from config import SETTINGS
+
+
+class OAuthSchemaResponse(BaseModel):
+    access_token: str
+    expires_in: int = SETTINGS.TOKEN_KEY_EXPIRE_TIME
+    refresh_token: str | None = None
+    token_type: str = \'Bearer\'
+    scope: str | None = None
+'''
+
+
+access_token: str = '''from typing import NamedTuple, Self
 import json
 
 
@@ -56,6 +72,38 @@ class AccessToken(NamedTuple):
     capabilities: dict[str, str]
 
     exp: int = 0
+
+
+    def can_create_or_raise(self, capability: str) -> None:
+        """ C """
+
+        permision: str = self.capabilities.get(capability, '')
+
+        if not permision or not int(permision[0]):
+            raise UnAuthorizated()
+
+    def can_read_or_raise(self, capability: str) -> None:
+        """ R """
+
+        permision: str = self.capabilities.get(capability, '')
+
+        if not permision or not int(permision[1]):
+            raise UnAuthorizated()
+
+    def can_modify_or_raise(self, capability: str) -> None:
+        """ U """
+
+        permision: str = self.capabilities.get(capability, '')
+
+        if not permision or not int(permision[2]):
+            raise UnAuthorizated()
+
+    def can_delete_or_raise(self, capability: str) -> None:
+        """ D """
+
+        permision: str = self.capabilities.get(capability, '')
+        if not permision or not int(permision[3]):
+            raise UnAuthorizated()
 
 
     def as_token(self) -> str:
@@ -89,8 +137,7 @@ class AccessToken(NamedTuple):
             raise Forbiden() from e
 
         raise UnAuthorizated()
-
-"""
+'''
 
 err: str = """from fastapi import HTTPException, status
 
@@ -124,50 +171,3 @@ class RFCExpiredToken(HTTPException):
         )
 """
 
-rbac_model: str = '''from typing import NamedTuple
-
-
-from pydantic import BaseModel
-
-
-from config import SETTINGS
-
-from .err import UnAuthorizated
-
-
-class OAuthSchemaResponse(BaseModel):
-    access_token: str
-    expires_in: int = SETTINGS.TOKEN_KEY_EXPIRE_TIME
-    refresh_token: str | None = None
-    token_type: str = \'Bearer\'
-    scope: str | None = None
-
-
-class Capabilities(NamedTuple):
-    user: str
-
-
-class Capability(NamedTuple):
-    permision: str # C:0, R:0, U:0, D:0
-
-    def can_create_or_raise(self) -> None:
-        """ C """
-        if not self.permision or not int(self.permision[0]):
-            raise UnAuthorizated()
-
-    def can_read_or_raise(self) -> None:
-        """ R """
-        if not self.permision or not int(self.permision[1]):
-            raise UnAuthorizated()
-
-    def can_modify_or_raise(self) -> None:
-        """ U """
-        if not self.permision or not int(self.permision[2]):
-            raise UnAuthorizated()
-
-    def can_delete_or_raise(self) -> None:
-        """ D """
-        if not self.permision or not int(self.permision[3]):
-            raise UnAuthorizated()
-
-'''

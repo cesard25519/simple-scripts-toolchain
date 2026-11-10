@@ -71,7 +71,7 @@ alias littsini="python ~/.toolchain/lit_ts_init.py"
 alias mkpyrouter="python ~/.toolchain/py_pkg_router.py"
 alias mkpymod="python ~/.toolchain/py_module_init.py"
 alias mkpyflask="python ~/.toolchain/py_flask_ini.py"
-alias mkpyfastapi="python ~/.toolchain/py_fastapi_ini.py"
+alias mkpy_fastapi="python ~/.toolchain/_py_fastapi_ini/main.py"
 
 alias tcadd="python ~/.toolchain/scripts/add_template.py"
 
