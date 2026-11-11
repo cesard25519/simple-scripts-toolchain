@@ -3,12 +3,14 @@ from typing import NamedTuple, Self
 
 class Namespace(NamedTuple):
     err: str
+    mod: str
 
 
     @classmethod
     def as_fold(cls) -> Self:
         return cls(
             err=err,
+            mod=mod,
         )
 
 
@@ -28,5 +30,25 @@ class NotFound(HTTPException):
         )
 
 
+"""
+mod: str = """from fastapi import APIRouter
+
+
+from . import *
+
+
+_paths: list = [] # modules
+
+
+def router() -> APIRouter:
+    app: APIRouter = APIRouter(
+        prefix='/api/v1',
+        tags=['v1'],
+    )
+
+    for path in _paths:
+        app.include_router(router=path.router)
+
+    return app
 """
 

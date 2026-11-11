@@ -22,25 +22,18 @@ __pycache__/
 
 
 main: str = """from fastapi import FastAPI
+from uvicorn import run
 
 
 from config import SETTINGS
+from api import router
 
 
 app: FastAPI = FastAPI()
-
-
-def main() -> None:
-    from api import *
-
-    # app.include_router(router=_.router)
+app.include_router(router=router())
 
 
 if __name__ == '__main__':
-    from uvicorn import run
-
-    main()
-
     run(
         port=SETTINGS.PORT,
         host=SETTINGS.HOST,
