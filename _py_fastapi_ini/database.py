@@ -1,9 +1,9 @@
 from typing import NamedTuple, Self
 
-
 class Namespace(NamedTuple):
     prepare: str
     sqlite: str
+    mod: str
 
 
     @classmethod
@@ -11,22 +11,33 @@ class Namespace(NamedTuple):
         return cls(
             sqlite=sqlite_prepare,
             prepare=prepare,
+            mod=mod,
         )
 
+mod: str = """from .sqlite import PreparedQuery as Prepare
+from .prepare import Void, Pool, ID, Subject
+"""
 
 
-prepare: str = """from typing import Any, Protocol, TypeVar, runtime_checkable
-from dataclasses import dataclass, field
+prepare: str = """from typing import Any, Protocol, TypeVar,\
+    runtime_checkable, Callable, NamedTuple
+
 
 T = TypeVar('T')
 
-Pool = Any
+
+type Void = Callable[..., None]
+Pool: type = Any
+ID: type = int
 
 
-@dataclass
-class CursorInfo:
+class Subject(NamedTuple):
+    id: ID
+
+
+class CursorInfo(NamedTuple):
+    rows: list
     changes: int = 0
-    rows: list = field(default_factory=list)
     last_row_inserted_id: int | None = None
 
 
@@ -42,16 +53,13 @@ class Prepare(Protocol[T]):
 """
 
 sqlite_prepare: str = """from sqlite3 import Connection, connect, Cursor
-from typing import Any, Generator, Callable
 from contextlib import contextmanager
 from dataclasses import dataclass
+from typing import Any, Generator
 
 
 from .prepare import Prepare, CursorInfo
 from config import SETTINGS
-
-
-type Void = Callable[..., None]
 
 
 @dataclass

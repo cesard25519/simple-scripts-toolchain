@@ -3,6 +3,7 @@ from typing import NamedTuple, Self
 
 class Namespace(NamedTuple):
     settings: str
+    utils: str
     mod: str
 
 
@@ -10,6 +11,7 @@ class Namespace(NamedTuple):
     def as_fold(cls) -> Self:
         return cls(
             settings=settings,
+            utils=utils,
             mod=mod,
         )
 
@@ -18,6 +20,9 @@ mod: str = """from .settings import Settings
 
 
 SETTINGS: Settings = Settings()
+"""
+
+utils: str = """
 """
 
 settings: str = """from functools import cached_property

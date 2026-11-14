@@ -73,37 +73,29 @@ class AccessToken(NamedTuple):
 
     exp: int = 0
 
+    def _can(self, cap: str, _type: int) -> None:
+        if _cap := self.capabilities.get(cap):
+            if not int(_cap[_type]):
+                raise UnAuthorizated()
+
 
     def can_create_or_raise(self, capability: str) -> None:
         """ C """
-
-        permision: str = self.capabilities.get(capability, '')
-
-        if not permision or not int(permision[0]):
-            raise UnAuthorizated()
+        return self._can(cap=capability, _type=0)
 
     def can_read_or_raise(self, capability: str) -> None:
         """ R """
+        return self._can(cap=capability, _type=1)
 
-        permision: str = self.capabilities.get(capability, '')
-
-        if not permision or not int(permision[1]):
-            raise UnAuthorizated()
 
     def can_modify_or_raise(self, capability: str) -> None:
         """ U """
+        return self._can(cap=capability, _type=2)
 
-        permision: str = self.capabilities.get(capability, '')
-
-        if not permision or not int(permision[2]):
-            raise UnAuthorizated()
 
     def can_delete_or_raise(self, capability: str) -> None:
         """ D """
-
-        permision: str = self.capabilities.get(capability, '')
-        if not permision or not int(permision[3]):
-            raise UnAuthorizated()
+        return self._can(cap=capability, _type=3)
 
 
     def as_token(self) -> str:
