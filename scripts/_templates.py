@@ -2,9 +2,9 @@ from secrets import token_hex
 
 
 dotenv_pg: str = f'''# dotenv_pg::tcadd::poi
-DATABASE_DATABASE=sample
 DATABASE_PASSWORD=admin
 DATABASE_HOST=localhost
+DATABASE_NAME=sample
 DATABASE_USER=admin
 DATABASE_PORT=5432
 DATABASE_MAX=4
