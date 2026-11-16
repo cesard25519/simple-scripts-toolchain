@@ -31,17 +31,22 @@ class NotFound(HTTPException):
 
 
 """
-mod: str = """from fastapi import APIRouter
+mod: str = """
+from fastapi import APIRouter, FastAPI
+
+
+App: type = FastAPI | APIRouter
 
 
 from . import *
 
 
-_paths: list = [] # modules
+_paths: list = [
+] # modules
 
 
-def router() -> APIRouter:
-    app: APIRouter = APIRouter(
+def create_router(app: App | None = None) -> App:
+    app = app or APIRouter( # trick for default value
         prefix='/api/v1',
         tags=['v1'],
     )

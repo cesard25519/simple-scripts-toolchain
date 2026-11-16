@@ -25,12 +25,12 @@ main: str = """from fastapi import FastAPI
 from uvicorn import run
 
 
+from api import create_router
 from config import SETTINGS
-from api import router
 
 
 app: FastAPI = FastAPI()
-app.include_router(router=router())
+create_router(app=app)
 
 
 if __name__ == '__main__':

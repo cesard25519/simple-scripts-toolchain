@@ -16,12 +16,13 @@ class Namespace(NamedTuple):
             mod=mod,
         )
 
-mod: str = """from .sqlite import PreparedQuery as Prepare
+mod: str = """from .sqlite import PreparedQuery as SqlitePrepare
 from .prepare import Void, Pool, ID, Subject
+from .pg import PreparedQuery as PgPrepare
 """
 
 
-prepare: str = """from typing import Any, Protocol, TypeVar,\
+prepare: str = """from typing import Any, Protocol, TypeVar,\\
     runtime_checkable, Callable, NamedTuple
 
 
@@ -140,6 +141,7 @@ class PreparedQuery(Prepare):
 
         finally:
             _pool.putconn(conn)
+
 
     def get(self, *p: Any) -> tuple | None:
         with self._connect() as conn:

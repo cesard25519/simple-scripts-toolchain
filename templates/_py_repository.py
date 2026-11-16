@@ -1,16 +1,22 @@
-template_prepared_query: str = """
-from typing import Any, Protocol, TypeVar, runtime_checkable
-from dataclasses import dataclass, field
+template_prepared_query: str = """from typing import Any, Protocol, TypeVar,\\
+    runtime_checkable, Callable, NamedTuple
+
 
 T = TypeVar('T')
 
-Pool = Any
+
+type Void = Callable[..., None]
+Pool: type = Any
+ID: type = int
 
 
-@dataclass
-class CursorInfo:
+class Subject(NamedTuple):
+    id: ID
+
+
+class CursorInfo(NamedTuple):
+    rows: list
     changes: int = 0
-    rows: list = field(default_factory=list)
     last_row_inserted_id: int | None = None
 
 
@@ -24,4 +30,5 @@ class Prepare(Protocol[T]):
     def exec(self) -> None: ...
 
 """
+
 
