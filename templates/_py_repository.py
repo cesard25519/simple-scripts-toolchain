@@ -24,3 +24,4 @@ class Prepare(Protocol[T]):
     def exec(self) -> None: ...
 
 """
+

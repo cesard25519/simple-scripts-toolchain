@@ -4,6 +4,7 @@ class Namespace(NamedTuple):
     prepare: str
     sqlite: str
     mod: str
+    pg: str
 
 
     @classmethod
@@ -11,6 +12,7 @@ class Namespace(NamedTuple):
         return cls(
             sqlite=sqlite_prepare,
             prepare=prepare,
+            pg=pg_prepare,
             mod=mod,
         )
 
@@ -101,3 +103,70 @@ class PreparedQuery[T](Prepare[T]):
         with self._connect() as conn:
             conn.execute(self.sql)
 """
+pg_prepare: str = """
+from contextlib import contextmanager
+from dataclasses import dataclass
+from typing import Any, Generator
+
+
+from psycopg2.extensions import connection as Connection, cursor
+from psycopg2.pool import ThreadedConnectionPool
+
+from .prepare import Prepare, CursorInfo
+from config import SETTINGS
+
+
+_pool: ThreadedConnectionPool = ThreadedConnectionPool(
+    dsn=SETTINGS.DATABASE_URL,
+    maxconn=10,
+    minconn=1,
+)
+
+@dataclass
+class PreparedQuery(Prepare):
+    sql: str
+
+
+    @contextmanager
+    def _connect(self) -> Generator[cursor, None, None]:
+        conn: Connection = _pool.getconn()
+        try:
+            with conn.cursor() as cur:
+                yield cur
+
+        except Exception as e:
+            conn.rollback()
+            raise
+
+        finally:
+            _pool.putconn(conn)
+
+    def get(self, *p: Any) -> tuple | None:
+        with self._connect() as conn:
+            conn.execute(self.sql, tuple(p))
+            return conn.fetchone()
+
+
+    def run(self, *p: Any) -> CursorInfo:
+        with self._connect() as conn:
+            conn.execute(self.sql, tuple(p))
+
+            return CursorInfo(
+                last_row_inserted_id=conn.lastrowid,
+                rows=conn.fetchmany(),
+                changes=conn.rowcount,
+            )
+
+
+    def all(self, *p: Any) -> list[tuple]:
+        with self._connect() as conn:
+            conn.execute(self.sql, tuple(p))
+            return conn.fetchall()
+
+
+    def exec(self) -> None:
+        with self._connect() as conn:
+            conn.execute(self.sql)
+
+"""
+
