@@ -37,6 +37,7 @@ if __name__ == '__main__':
     run(
         port=SETTINGS.PORT,
         host=SETTINGS.HOST,
+        reload=True,
         app=app,
     )
 """
