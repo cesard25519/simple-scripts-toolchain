@@ -116,12 +116,15 @@ from psycopg2.pool import ThreadedConnectionPool
 from .prepare import Prepare, CursorInfo
 from config import SETTINGS
 
+try:
+    _pool: ThreadedConnectionPool = ThreadedConnectionPool(
+        dsn=SETTINGS.DATABASE_DSN,
+        maxconn=10,
+        minconn=1,
+    )
+except Exception as e:
+    print(str(e))
 
-_pool: ThreadedConnectionPool = ThreadedConnectionPool(
-    dsn=SETTINGS.DATABASE_URL,
-    maxconn=10,
-    minconn=1,
-)
 
 @dataclass
 class PreparedQuery(Prepare):
