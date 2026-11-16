@@ -16,7 +16,21 @@ from utils import (
 
 @__main__
 def main() -> None:
-    for router_name in term_args[1:]:
+    args: list[str] = term_args[1:]
+
+    if args and args[0] == '.file':
+        for router_name in args:
+            __create_py_file(
+                content=init_router.replace('__name__', router_name),
+                name=router_name,
+            )
+        __create_py_file(
+            content=repository.replace('__name__', ''),
+            name='repository',
+        )
+        return
+
+    for router_name in args:
         __create_dir_and_enter(name=router_name)
 
         __create_py_file(name='err', content=errors)
