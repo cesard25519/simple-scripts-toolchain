@@ -1,10 +1,10 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from os import system as _exec
 
 
 @dataclass
 class PyTermux:
-    _data: list[str] = []
+    _data: list[str] = field(default_factory=list)
     _ctt: str = ''
 
 
