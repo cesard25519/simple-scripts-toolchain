@@ -106,3 +106,10 @@ alias "turso-db-url"="turso db show"
 alias "turso-db-auth-token"="turso db tokens create"
 alias "turso-shell"="turso db shell"
 
+
+turso-db-info() {
+    [ -z "$1" ] && { echo "db-name: $1"; return 1; }
+
+    turso db show "$1" && turso db tokens create "$1"
+}
+
