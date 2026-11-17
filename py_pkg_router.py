@@ -18,8 +18,8 @@ from utils import (
 def main() -> None:
     args: list[str] = term_args[1:]
 
-    if args and args[0] == '.file':
-        for router_name in args:
+    if args and args[0] == '.':
+        for router_name in args[1:]:
             __create_py_file(
                 content=init_router.replace('__name__', router_name),
                 name=router_name,

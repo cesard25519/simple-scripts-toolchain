@@ -31,8 +31,8 @@ class NotFound(HTTPException):
 
 
 """
-mod: str = """
-from fastapi import APIRouter, FastAPI
+
+mod: str = """from fastapi import APIRouter, FastAPI
 
 
 App: type = FastAPI | APIRouter

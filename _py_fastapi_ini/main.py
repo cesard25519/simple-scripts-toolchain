@@ -38,6 +38,7 @@ def main() -> None:
     create_files_from_namespace_and_exit(n=Api.as_fold()._asdict())
 
     __create_dir('tools')
+    __create_dir('core')
 
 
 

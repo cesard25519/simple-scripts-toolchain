@@ -104,8 +104,7 @@ class PreparedQuery[T](Prepare[T]):
         with self._connect() as conn:
             conn.execute(self.sql)
 """
-pg_prepare: str = """
-from contextlib import contextmanager
+pg_prepare: str = """from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Any, Generator
 
