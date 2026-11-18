@@ -116,11 +116,14 @@ from .prepare import Prepare, CursorInfo
 from config import SETTINGS
 
 try:
-    _pool: ThreadedConnectionPool = ThreadedConnectionPool(
-        dsn=SETTINGS.DATABASE_DSN,
-        maxconn=10,
-        minconn=1,
-    )
+    if dsn := SETTINGS.DATABASE_DSN:
+        _pool: ThreadedConnectionPool = ThreadedConnectionPool(
+            dsn=SETTINGS.DATABASE_DSN,
+            maxconn=10,
+            minconn=1,
+        )
+
+
 except Exception as e:
     print(str(e))
 
