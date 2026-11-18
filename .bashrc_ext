@@ -1,0 +1,21 @@
+# backend-template-python
+new-api() {
+    [ -z "$1" ] && { echo "backend-name: $1"; return 1; }
+
+    # create api template
+    python ~/.toolchain/_py_fastapi_ini/main.py "$1"
+
+    # move to project and create uv app
+    cd "$1" && uv init --no-package .
+
+    # create uv venv
+    uv venv --system-site-packages
+
+    # create pyrefly config
+    pyrefly init
+
+    # add environ minimum
+    python ~/.toolchain/scripts/add_template.py - dotenv
+}
+
+

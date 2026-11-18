@@ -1,5 +1,8 @@
 clear && ls
 
+# extension
+source ~/.toolchain/.bashrc_ext
+
 # bash
 #alias tls="clear && tree -a -C -I \".venv|.git|node_modules|target\" -L 3"
 #alias tlss="clear && tree -a -C -I \".venv|.git|node_modules!target\""
@@ -16,6 +19,7 @@ alias update="pkg update && pkg upgrade"
 alias kill_proc="kill -9 PID"
 
 alias tool="vim ~/.toolchain/.bashrc"
+alias tool-ext="vim ~/.toolchain/.bashrc_ext"
 alias viconf="vim ~/.vim/"
 alias vicoc="vim ~/.vim/coc-settings.json"
 
@@ -123,6 +127,9 @@ alias dj_new="django-admin startproject"
 
 # uv
 alias uvenv="uv venv --system-site-packages"
+alias uvini="uv init --no-package"
+
+
 
 # javascript
 #alias astro="pnpm create astro@latest"
