@@ -6,6 +6,7 @@ clear && ls
 alias tlsss="clear && tree -a -C -I \".venv|.git|node_modules|target|.env|.gitignore\""
 alias tlss="clear && tree -a -C -I \".venv|.git|node_modules|target\""
 alias tls="tlss -L 3"
+alias sized="du -sh"
 
 alias clss="clear && ls -a --ignore='__init__.py'"
 alias cls="clear && ls --ignore='__init__.py'"
@@ -14,7 +15,7 @@ alias update="pkg update && pkg upgrade"
 
 alias kill_proc="kill -9 PID"
 
-alias tool="vim ~/.bashrc"
+alias tool="vim ~/.toolchain/.bashrc"
 alias viconf="vim ~/.vim/"
 alias vicoc="vim ~/.vim/coc-settings.json"
 
@@ -120,6 +121,8 @@ alias fkls="flask run --debug"
 # django
 alias dj_new="django-admin startproject"
 
+# uv
+alias uvenv="uv venv --system-site-packages"
 
 # javascript
 #alias astro="pnpm create astro@latest"
