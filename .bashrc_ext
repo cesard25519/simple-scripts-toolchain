@@ -16,6 +16,9 @@ new-api() {
 
     # add environ minimum
     python ~/.toolchain/scripts/add_template.py - dotenv
+
+    # clear and show tree
+    clear && tree -a -C -I ".venv|.git|node_modules|target|.env|.gitignore"
 }
 
 
