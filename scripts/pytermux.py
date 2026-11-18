@@ -47,7 +47,7 @@ class PyTermux:
 
 
     def __eval_end_mark(self) -> bool:
-        is_mark: bool = '?' in self._ctt
+        is_mark: bool = '.?' in self._ctt
 
         if is_mark:
             _exec('clear')
