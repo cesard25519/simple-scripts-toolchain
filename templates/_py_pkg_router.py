@@ -31,9 +31,16 @@ repository: str = '''from config.database import SqlitePrepare as Prepare, Void
 
 
 class Repository:
-    create_table: Void = Prepare("""CREATE TABLE IF NOT EXISTS __name__(
-        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        id INTEGER PRIMARY KEY AUTOINCREMENT
-    )""").exec
+    create_table: Void = Prepare("""
+    --.======================================================================
+    --.                             turso scheme
+    --.======================================================================
+    CREATE TABLE IF NOT EXISTS __name__(
+        created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        id uuid PRIMARY KEY DEFAULT uuid4(),
+
+        --...
+    ) STRICT;
+    """).exec
 
 '''
