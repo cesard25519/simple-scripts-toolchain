@@ -14,35 +14,46 @@ from utils import (
 )
 
 
+def _repo_template(table_name: str) -> None:
+    return __create_py_file(
+        content=repository.replace('__name__', table_name),
+        name='repository'
+    )
+
 @__main__
 def main() -> None:
     args: list[str] = term_args[1:]
+    sized: int = len(args)
 
-    if args and args[0] == '.':
-        for router_name in args[1:]:
-            __create_py_file(
+    if not sized: return print('cancelled operation')
+
+    if args[0] != '.':
+        for router_name in args:
+            __create_dir_and_enter(name=router_name)
+            __create_py_file(name='err', content=errors)
+            _repo_template(table_name=router_name)
+
+            __create_file_and_exit(
                 content=init_router.replace('__name__', router_name),
-                name=router_name,
+                name='__init__.py',
             )
-        __create_py_file(
-            content=repository.replace('__name__', ''),
-            name='repository',
-        )
         return
 
-    for router_name in args:
-        __create_dir_and_enter(name=router_name)
-
-        __create_py_file(name='err', content=errors)
-
+    if sized == 1: return print('cancelled templating operation')
+    if sized == 2 and args == ['.', '-']:
         __create_py_file(
-            content=repository.replace('__name__', router_name),
-            name='repository',
+            content=init_router.replace('__name__', ''),
+            name='router',
         )
+        return _repo_template(table_name='')
 
-        __create_file_and_exit(
+    for router_name in args[1:]:
+        __create_py_file(
             content=init_router.replace('__name__', router_name),
-            name='__init__.py',
+            name=router_name,
         )
-
+    __create_py_file(
+        content=repository.replace('__name__', ''),
+        name='repository',
+    )
 
