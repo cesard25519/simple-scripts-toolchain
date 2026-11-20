@@ -1,4 +1,5 @@
 from sys import argv as term_args
+from os import listdir
 
 
 from _utils import (
@@ -26,7 +27,10 @@ def create_files_from_namespace(n: dict[str, str]) -> None:
 
         if name.startswith('dot'):
             name = '.' + name.removeprefix('dot_')
-            __create_file(name=name, content=template)
+
+            if not ( name in listdir() ):
+                __create_file(name=name, content=template)
+
             continue
 
         __create_py_file(name=name, content=template)
