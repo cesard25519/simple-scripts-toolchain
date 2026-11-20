@@ -1,7 +1,7 @@
 from secrets import token_hex
 
 __dotenv: list[str] = [
-    'HOST="0.0.0.0"',
+    'HOST=localhost',
     'PORT=4000',
     'DEBUG=1',
 

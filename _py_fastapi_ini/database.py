@@ -3,6 +3,7 @@ from typing import NamedTuple, Self
 class Namespace(NamedTuple):
     prepare: str
     sqlite: str
+    turso: str
     mod: str
     pg: str
 
@@ -11,12 +12,14 @@ class Namespace(NamedTuple):
     def as_fold(cls) -> Self:
         return cls(
             sqlite=sqlite_prepare,
+            turso=turso_prepare,
             prepare=prepare,
             pg=pg_prepare,
             mod=mod,
         )
 
 mod: str = """from .sqlite import PreparedQuery as SqlitePrepare
+from .turso import PreparedQuery as TursoPrepare
 from .prepare import Void, Pool, ID, Subject
 from .pg import PreparedQuery as PgPrepare
 """
@@ -176,8 +179,7 @@ class PreparedQuery(Prepare):
             conn.execute(self.sql)
 
 """
-turso_prepare: str = """
-from turso_serverless import Connection, connect, Cursor
+turso_prepare: str = """from turso_serverless import Connection, connect, Cursor
 from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Any, Generator
@@ -195,7 +197,10 @@ class PreparedQuery[T](Prepare[T]):
     @contextmanager
     def _connect(self) -> Generator[Connection, None, None]:
         try:
-            with connect(SETTINGS.DATABASE_URL) as conn:
+            with connect(
+                auth_token=SETTINGS.DATABASE_AUTH_TOKEN,
+                url=SETTINGS.DATABASE_URL,
+            ) as conn:
                 yield conn
 
         finally:

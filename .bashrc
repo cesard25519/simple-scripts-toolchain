@@ -156,8 +156,8 @@ alias pg__stop="pg_ctl stop -D ~/._pg_lab"
 alias pg__clean="del ~/._pg_lab"
 
 
-export ANDROID_API_LEVEL=$(getprop ro.build.version.sdk)
-#export ANDROID_API_LEVEL=24
+#export ANDROID_API_LEVEL=$(getprop ro.build.version.sdk)
+export ANDROID_API_LEVEL=24
 
 export PATH=$HOME/.cargo/bin:$PATH
 

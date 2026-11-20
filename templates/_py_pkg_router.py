@@ -27,7 +27,7 @@ model: str = """from pydantic import BaseModel
 class S(BaseModel): ...
 """
 
-repository: str = '''from config.database import SqlitePrepare as Prepare, Void
+repository: str = '''from config.database import TursoPrepare as Prepare, Void
 
 
 class Repository:
@@ -36,8 +36,8 @@ class Repository:
     --.                             turso scheme
     --.======================================================================
     CREATE TABLE IF NOT EXISTS __name__(
-        created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        id uuid PRIMARY KEY DEFAULT uuid4(),
+        created_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+        id TEXT PRIMARY KEY DEFAULT (uuid4_str()),
 
         --...
     ) STRICT;
